@@ -47,16 +47,16 @@
       color: var(--white);
     }
     .swiper-slide{
-      height: 68vh;
-      min-height: 420px;
+      /* height: 68vh; */
+      /* min-height: 420px; */
       max-height: 760px;
       position: relative;
     }
     .swiper-slide img{
       object-fit: cover;
       width: 100%;
-      height: 100%;
-      filter: brightness(0.7) contrast(1.05);
+      height: auto;
+      filter: brightness(1.0) contrast(1.05);
     }
     .hero-caption{
       position: absolute;
@@ -114,6 +114,9 @@
     .gallery-img:hover{
       transform: translateY(-4px);
       box-shadow: 0 16px 40px rgba(0,0,0,.15);
+    }
+    .gallery-hidden {
+      display: none;
     }
 
     /* Achievements timeline */
@@ -175,3 +178,7 @@
     .bg-navy{ background: var(--navy); }
     .text-navy{ color: var(--navy); }
     .minh-50{ min-height: 50vh; }
+
+    #adminLogin {
+      display: none;
+    }

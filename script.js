@@ -157,9 +157,10 @@ function renderEvents(){
 function renderGallery(){
   const grid = document.getElementById("galleryGrid");
   grid.innerHTML = "";
+  const initialCount = 4; // Show 4 images initially
   DATA.gallery.forEach((src, i) => {
     const col = document.createElement("div");
-    col.className = "col-6 col-md-4 col-lg-3";
+    col.className = "col-6 col-md-4 col-lg-3" + (i >= initialCount ? " gallery-hidden" : "");
     col.innerHTML = `
       <a href="${src}" class="gallery-item d-block" data-lg-size="1200-800" data-src="${src}">
         <img class="gallery-img" src="${src}" alt="Event photo ${i+1}" loading="lazy" width="600" height="400" />
@@ -175,6 +176,14 @@ function renderGallery(){
     thumbnail: true,
     speed: 300
   });
+
+  // Show/hide the View More button
+  const viewMoreBtn = document.getElementById("galleryViewMoreBtn");
+  if (DATA.gallery.length > initialCount) {
+    viewMoreBtn.style.display = "block";
+  } else {
+    viewMoreBtn.style.display = "none";
+  }
 }
 
 function renderTeam(){
@@ -562,7 +571,7 @@ document.getElementById("adminTeamList").addEventListener("click", async (e)=>{
     document.getElementById("teamRole").value = t.role;
     document.getElementById("teamBio").value = t.bio || "";
     document.getElementById("teamPhoto").value = t.photo || "";
-    window.scrollTo({ top: document.getElementById("pane-team").offsetTop - 90, behavior: "smooth" });
+    // window.scrollTo({ top: document.getElementById("pane-team").offsetTop - 90, behavior: "smooth" });
   }
   if(delIdx !== null && delIdx !== undefined){
     if(confirm("Delete this team member?")){
@@ -616,4 +625,23 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   };
   document.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+});
+
+document.addEventListener('keydown', (e) => {
+  // Toggle admin login when user presses "A" twice quickly
+  if (!window._lastA) window._lastA = 0;
+  if (e.key === 'a' || e.key === 'A') {
+    const now = Date.now();
+    if (now - window._lastA < 500) {
+      const login = document.getElementById('adminLogin');
+      // Toggle display between block and none
+      login.style.display = (login.style.display === 'block') ? 'none' : 'block';
+    }
+    window._lastA = now;
+  }
+});
+
+document.getElementById("galleryViewMoreBtn").addEventListener("click", function() {
+  document.querySelectorAll(".gallery-hidden").forEach(el => el.classList.remove("gallery-hidden"));
+  this.style.display = "none";
 });
