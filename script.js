@@ -379,7 +379,7 @@ document.getElementById("loginForm").addEventListener("submit", (e)=>{
     updateAdminUI();
     window.location.hash = "#admin";
   } else {
-    alert("Invalid credentials (demo: admin / club@2025)");
+    alert("Invalid credentials");
   }
 });
 
